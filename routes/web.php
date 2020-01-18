@@ -11,6 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', 'CategoryController@index')->name('category.index');
+Route::get('category/create','CategoryController@create')->name('category.create');
+
+
+// http://{ホスト名}/admin/form に GET でアクセスすると、AdminBlogController の form メソッドを実行するという意味
+// name メソッドでエイリアスをつけることができる
+// Route::get('admin/form', 'AdminBlogController@form')->name('admin_form');
