@@ -17,6 +17,7 @@ class CreateCommandsTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('category_id')->unsigned();
             //string()はVARCHAR型である。2つ目の引数でサイズを指定できる。
+            //text型に特別な意味は無い。調べると基本的にVARCHAR型の方が良さそうなのでそっちにするべきかも。
             $table->string('name');
             $table->text('origin');
             $table->string('description');

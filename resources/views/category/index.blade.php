@@ -13,9 +13,9 @@
       <ul>
         @forelse ($categories as $category)
         <li>
-          {{-- <a href="{{ action(CommandController@index, $category) }}"> --}}
+          <a href="{{ route('category.show', ['category_id' => $category->category_id,]) }}">
           {{ $category->name }}
-          {{-- </a> --}}
+          </a>
         </li>
             
         @empty
