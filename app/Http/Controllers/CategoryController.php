@@ -8,7 +8,6 @@ use App\Http\Requests\CategoryRequest;
 
 use Illuminate\Http\Request;
 
-
 class CategoryController extends Controller
 {
     //
@@ -48,16 +47,20 @@ class CategoryController extends Controller
         // 入力値の取得
         $input = $request->input();
 
-        // create メソッドで複数代入を実行する。
-        // 対象テーブルのカラム名と配列のキー名が一致する場合、一致するカラムに一致するデータが入る
-        $category = $this->category->create($input);
+        $category_id = $request->category_id;
+        // $id = Arr::get($input, 'id');
+        // 違いはあるのか
+        // $category_id = $input->category_id;
+        // これだとだめだった。よくわからん。
+        
+        
+        $category = $this->category->updateOrCreate(compact('category_id'), $input);
+
 
         // リダイレクトでフォーム画面に戻る
         // route ヘルパーでリダイレクト先を指定。ルートのエイリアスを使う場合は route ヘルパーを使う
         // with メソッドで、セッションに次のリクエスト限りのデータを保存する
-        // return redirect()->route('admin_form')->with('message', 'を保存しました');
-        return redirect()->route('category.create')->with('message', '新規カテゴリーを保存しました');
-
+        return redirect()->route('category.index')->with('message', '新規カテゴリーを保存しました');
     }
 
     public function show($category_id)
@@ -68,6 +71,33 @@ class CategoryController extends Controller
         $category_name = $category->name;
 
 
-        return view('category.show', compact('commands', 'category' , 'category_id' , 'category_name'));
+        return view('category.show', compact('commands', 'category', 'category_id', 'category_name'));
+    }
+
+    public function edit($category_id)
+    {
+        $category = $this->category->find($category_id);
+
+        return view('category.edit', compact('category'));
+    }
+
+    public function delete(Request $request)
+    {
+        $category_id = $request->category_id;
+        $category = $this->category->find($category_id);
+
+        if ($category == null) {
+            $error = 'カテゴリーの削除に失敗しました。';
+            return redirect()->route('category.index')->with('error', $error);
+        }
+
+        if ($category->checkCommandList()) {
+            $error = 'カテゴリー内にコマンドが含まれているため、削除に失敗しました。';
+            return redirect()->route('category.edit', ['category_id' => $category_id])->with('error', $error);
+        } else {
+            $category->delete();
+            $message = 'カテゴリーを削除しました';
+            return redirect()->route('category.index')->with('message', $message);
+        }
     }
 }

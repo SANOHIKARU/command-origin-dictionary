@@ -20,6 +20,10 @@ use App\Http\Controllers\CommandController;
 Route::get('/', 'CategoryController@index')->name('category.index');
 Route::get('category/create','CategoryController@create')->name('category.create');
 Route::post('category/store', 'CategoryController@store')->name('category.store');
+Route::get('category/{category_id}/edit', 'categoryController@edit')->name('category.edit');
+// Route::get('category/{category_id}/delete', 'categoryController@delete')->name('category.delete');
+Route::post('category/delete', 'categoryController@delete')->name('category.delete');
+
 // {category}/edit
 // {category}/delete
 

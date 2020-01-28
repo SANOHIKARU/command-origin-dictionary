@@ -55,7 +55,7 @@ class CommandController extends Controller
         // ここでは article_id でレコードを検索し、第二引数の入力値でレコードを更新、または新規作成しています
         $command = $this->command->updateOrCreate(compact('id'), $input);
 
-        return redirect()->route('command.create', ['category_id' => $command->category_id])->with('message', '新規コマンドを保存しました');
+        return redirect()->route('category.show', ['category_id' => $command->category_id])->with('message', '新規コマンドを保存しました');
     }
 
     public function edit(int $id)
@@ -82,12 +82,12 @@ class CommandController extends Controller
         if($command){
         $category_id = $command->category_id;
         $result = $command->delete();
-        $message = '記事を削除しました';
+        $message = 'コマンドを削除しました';
         
         return redirect()->route('category.show', ['category_id' => $category_id])->with('message', $message);
-        
+
         } else {
-            $error = '記事の削除に失敗しました。';
+            $error = 'コマンドの削除に失敗しました。';
             return redirect()->route('category.index')->with('error', $error);
         }
     }
