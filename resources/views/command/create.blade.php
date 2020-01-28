@@ -14,6 +14,8 @@
     <form method="POST" action="{{  route('command.store')  }}">
 
       <input type="hidden" name="category_id" value="{{ $category->category_id }}">
+      <input type="hidden" name="store_type" value="create">
+
       <div class="form-group">
         <label>カテゴリー名</label>
         <input class="form-control" name="name" value="{{ $category->name }}" placeholder="" disabled>

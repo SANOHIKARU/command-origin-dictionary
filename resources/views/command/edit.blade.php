@@ -27,6 +27,7 @@
 
       <input type="hidden" name="category_id" value="{{ $category->category_id }}">
       <input type="hidden" name="id" value="{{ $command->id }}">
+      <input type="hidden" name="store_type" value="edit">
 
       <div class="form-group">
         <label>カテゴリー名</label>

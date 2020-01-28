@@ -9,6 +9,8 @@
         <h2>Category登録・編集</h2>
 
         <form method="POST" action="{{  route('category.store')  }}">
+            <input type="hidden" name="store_type" value="create">
+
             <div class="form-group">
                 <label>カテゴリー名</label>
                 <input class="form-control" name="name" value="{{ old('name') }}" placeholder="カテゴリー名を入力して下さい"  autofocus>
