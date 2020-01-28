@@ -12,17 +12,15 @@
 
       {{-- 削除ボタン --}}
       <form action="{{ route('command.delete') }}" method="POST" style="display: inline">
-        <input type="submit" class="btn btn-danger btn-sm" value="削除">
+        <input type="submit" class="btn btn-danger btn-sm" value="削除" onClick="delete_alert(event);return false;">
         <input type="hidden" name="id" value="{{ $command->id }}">
         {{ csrf_field() }}
       </form>
 
-     
-
     </h2>
 
 
-  
+
 
 
     <form method="POST" action="{{  route('command.store')  }}">
@@ -63,4 +61,14 @@
 
 
 
+@endsection
+@section('script')
+<script>
+function delete_alert(e){
+   if(!window.confirm('本当に削除しますか？')){
+      return false;
+   }
+   document.deleteform.submit();
+};
+</script>
 @endsection
