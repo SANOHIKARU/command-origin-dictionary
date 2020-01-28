@@ -21,7 +21,7 @@
 
       <div class="form-group">
         <label>コマンド名</label>
-        <input class="form-control" name="name" value="{{ old('name') }}" placeholder="コマンド名を入力して下さい">
+        <input class="form-control" name="name" value="{{ old('name') }}" placeholder="コマンド名を入力して下さい"  autofocus>
       </div>
 
       <div class="form-group">
