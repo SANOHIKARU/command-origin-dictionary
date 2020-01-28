@@ -48,6 +48,7 @@ class CommandController extends Controller
         // 指定したキーが存在しなくても、エラーにならずデフォルト値が返るのが便利
         // $id = array_get($input, 'id');
         $id = Arr::get($input, 'id');
+        $store_type = Arr::get($input, 'store_type');
 
         
         // Eloquent モデルから利用できる updateOrCreate メソッドは、第一引数の値でDBを検索し
@@ -55,7 +56,19 @@ class CommandController extends Controller
         // ここでは article_id でレコードを検索し、第二引数の入力値でレコードを更新、または新規作成しています
         $command = $this->command->updateOrCreate(compact('id'), $input);
 
-        return redirect()->route('category.show', ['category_id' => $command->category_id])->with('message', '新規コマンドを保存しました');
+        switch ($store_type) {
+            case "create":
+                $message = "新規コマンドを保存しました";
+                break;
+            case "edit":
+                $message = "コマンドの編集を保存しました";
+                break;
+            default:
+                $message = "何かがおかしいようです。";
+            }
+
+
+        return redirect()->route('category.show', ['category_id' => $command->category_id])->with('message', $message);
     }
 
     public function edit(int $id)
@@ -79,13 +92,12 @@ class CommandController extends Controller
         //delete()の場合nullだとエラーになりました。
 
         $command = $this->command->find($id);
-        if($command){
-        $category_id = $command->category_id;
-        $result = $command->delete();
-        $message = 'コマンドを削除しました';
+        if ($command) {
+            $category_id = $command->category_id;
+            $result = $command->delete();
+            $message = 'コマンドを削除しました';
         
-        return redirect()->route('category.show', ['category_id' => $category_id])->with('message', $message);
-
+            return redirect()->route('category.show', ['category_id' => $category_id])->with('message', $message);
         } else {
             $error = 'コマンドの削除に失敗しました。';
             return redirect()->route('category.index')->with('error', $error);

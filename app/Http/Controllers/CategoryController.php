@@ -56,11 +56,22 @@ class CategoryController extends Controller
         
         $category = $this->category->updateOrCreate(compact('category_id'), $input);
 
+        $store_type = $request->store_type;
+        switch($store_type){
+            case "create":
+                $message = "新規カテゴリーを保存しました";
+            break;
+            case "edit":
+                $message = "カテゴリーの編集を保存しました";
+            break;
+            default:
+                $message = "何かがおかしいようです。";
+        }
 
         // リダイレクトでフォーム画面に戻る
         // route ヘルパーでリダイレクト先を指定。ルートのエイリアスを使う場合は route ヘルパーを使う
         // with メソッドで、セッションに次のリクエスト限りのデータを保存する
-        return redirect()->route('category.index')->with('message', '新規カテゴリーを保存しました');
+        return redirect()->route('category.index')->with('message', $message);
     }
 
     public function show($category_id)
