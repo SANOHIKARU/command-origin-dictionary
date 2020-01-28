@@ -13,7 +13,7 @@
 
   <script src="./js/jquery.js"></script>
   <script src="./js/bootstrap.js"></script>
-
+  <script src="https://kit.fontawesome.com/824b56a7d3.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
