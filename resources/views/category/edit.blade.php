@@ -25,7 +25,7 @@
 
       <div class="form-group">
         <label>カテゴリー名</label>
-        <input class="form-control" name="name" value="{{ old('name', $category->name) }}" placeholder="カテゴリー名を入力して下さい">
+        <input class="form-control" name="name" value="{{ old('name', $category->name) }}" placeholder="カテゴリー名を入力して下さい"  autofocus>
       </div>
 
       <input type="submit" class="btn btn-primary btn-sm" value="送信">
